@@ -47,7 +47,7 @@ public interface OAuthStateService extends Service {
         String newState = generateNewStateValue();
         // 1) set the value in the user's browser cookie
         String headerValue = getSessionCookieName() + "=" + generateSessionCookieValue(request, newState);
-        headerValue += "; Secure; HttpOnly; Path=/; Max-Age=" + getExpirationInSeconds();
+        headerValue += "; Secure; HttpOnly; Path=/; SameSite=Lax; Max-Age=" + getExpirationInSeconds();
         response.getHeaders().put("Set-Cookie", Arrays.asList(headerValue));
         addNewStateToDatastore(newState);
         return newState;
